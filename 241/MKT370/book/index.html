@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<link rel="shortcut icon" type="image/x-icon" href="index.png" />
+
+<!--
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;1,700&display=swap" rel="stylesheet">
+
+font-family: "Ubuntu", sans-serif;
+
+-->
+
+<link href="index.css" rel="stylesheet">
+
+<script src= "index.js"></script>
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+
+
+
+
+
+<style>
+
+
+
+body {
+
+text-align: center;
+
+font-family: 'Permanent Marker', cursive;
+
+}
+
+
+
+</style>
+
+
+<title>MKT370 Book</title>
+
+</head>
+<body style="background:linear-gradient(0.25turn, #3f87a6, #b0ffba, #ebf8e1,#eeccdd, #f69d3c);">
+
+<h1>MKT370 Book</h1>
+<button onclick="window.location.href='/241/MKT370/index.html'">Go Back</button>
+
+</br>
+<!--
+https://www.sanwebcorner.com/2016/07/load-pdfs-in-iframe-onclick-button.html
+-->
+</br>
+
+<input type="button" onclick = "p('c.pdf')" value="Cover" /></br>
+<input type="button" onclick = "p('1.pdf')" value="1" /></br>
+<input type="button" onclick = "p('2.pdf')" value="2"/></br>
+<input type="button" onclick = "p('3.pdf')" value="3"/></br>
+<input type="button" onclick = "p('4.pdf')" value="4"/></br>
+<input type="button" onclick = "p('5.pdf')" value="5" /></br>
+<input type="button" onclick = "p('6.pdf')" value="6" /></br>
+<input type="button" onclick = "p('7.pdf')" value="7" /></br>
+<input type="button" onclick = "p('8.pdf')" value="8" /></br>
+<input type="button" onclick = "p('9.pdf')" value="9" /></br>
+<input type="button" onclick = "p('10.pdf')" value="10" /></br>
+<input type="button" onclick = "p('11.pdf')" value="11" /></br>
+<input type="button" onclick = "p('12.pdf')" value="12" /></br>
+<input type="button" onclick = "p('13.pdf')" value="13" /></br>
+<input type="button" onclick = "p('14.pdf')" value="14" /></br>
+<input type="button" onclick = "p('15.pdf')" value="15" /></br>
+<input type="button" onclick = "p('16.pdf')" value="16" /></br>
+<input type="button" onclick = "p('17.pdf')" value="17" /></br>
+<input type="button" onclick = "p('18.pdf')" value="18" /></br>
+<input type="button" onclick = "p('19.pdf')" value="19" /></br>
+<input type="button" onclick = "p('20.pdf')" value="20" /></br>
+<input type="button" onclick = "p('21.pdf')" value="21" /></br>
+<input type="button" onclick = "p('22.pdf')" value="22" /></br>
+<input type="button" onclick = "p('i.pdf')" value="Index" /></br>
+
+
+</br>
+
+<p></p>
+
+<input type="text" id="mylabel" value="No chapter selected" style="width:500px;" />
+
+<p></p>
+
+<iframe id="myFrame"  style="width:95%; height:100vh;" frameborder="0"></iframe>
+
+<script type="text/javascript">
+
+function p(pdf)
+
+{
+
+var omyFrame = document.getElementById("myFrame");
+
+omyFrame.style.display="block";
+
+omyFrame.src = pdf;
+
+var olabel = document.getElementById("mylabel")
+
+olabel.style.display="block";
+
+olabel.value = omyFrame.src;
+
+}
+
+</script>
+    </body>
+<html>

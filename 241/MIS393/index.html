@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="index.png" />
+<!--
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;1,700&display=swap" rel="stylesheet">
+font-family: "Ubuntu", sans-serif;
+-->
+<link href="index.css" rel="stylesheet">
+<script src= "index.js"></script>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+<title>MIS393</title>
+
+<style>
+
+body {
+text-align: center;
+font-family: 'Permanent Marker', cursive;
+size:"32";
+}
+
+html{
+    size:"32";
+}
+
+</style>
+</head>
+
+<body style="background:linear-gradient(0.25turn, #3f87a6, #b0ffba, #ebf8e1,#eeccdd, #f69d3c);">
+
+<h1>MIS393</h1>
+
+<button onclick="window.location.href='/241/index.html'">Go Back</button>
+<br/>
+<br/>
+
+<button onclick="window.location.href='/241/MIS393/book/index.html'" style="font-size : 32px;" >Book</button>
+<br/>
+<p></p>
+<button onclick="window.location.href='/241/MIS393/ppt/index.html'" style="font-size : 32px;" >Powerpoint</button>
+<br/>
+<p></p>
+
+<input type="button" value="Syllabus" onclick = "p('s.pdf')"/></br>
+<p></p>
+
+<input type="text" id="mylabel" value="No chapter selected" style="width:500px;" />
+<p></p>
+
+<iframe id="myFrame"  style="width:95%; height:100vh;" frameborder="0"></iframe>
+
+<script type="text/javascript">
+
+function p(pdf)
+{
+
+var omyFrame = document.getElementById("myFrame");
+omyFrame.style.display="block";
+omyFrame.src = pdf;
+var olabel = document.getElementById("mylabel")
+olabel.style.display="block";
+olabel.value = omyFrame.src;
+}
+
+</script>
+
+
+    </body>
+
+
+<html>
