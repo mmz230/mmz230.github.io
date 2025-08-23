@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="qrcode.png" />
+
+<!--
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;1,700&display=swap" rel="stylesheet">
+font-family: "Ubuntu", sans-serif;
+-->
+<link href="index.css" rel="stylesheet">
+<script src= "index.js"></script>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Permanent+Marker&display=swap" rel="stylesheet">
+
+<title>qrCode</title>
+
+<style>
+
+html{
+
+
+background: rgb(255,193,235);
+background: linear-gradient(90deg, rgba(255,193,235,1) 0%, rgba(124,243,255,1) 33%, rgba(104,255,239,1) 51%, rgba(155,255,244,1) 72%, rgba(208,255,193,1) 100%);
+
+text-align: center;
+font-family: 'Permanent Marker', cursive;
+}
+
+
+</style>
+</head>
+
+<body >
+
+
+<button onclick="window.location.href='index.html'">Go Back</button>
+<button onclick="window.location.href='/qrcodescan/index.html'"><a href="/qrcodescan/index.html">qrCode Scanner</a></button>
+</br>
+
+<h1>qrCode Genrator</h1>
+  
+  <textarea id="textqrgenrator" maxlength="1500" cols="30" rows="2" style="width: 672px; height: 64px;"></textarea>
+ 
+   <br>
+    <button onclick="GerarQRCode()">Genrate qrCode</button>
+  <button onclick="clearqrcode()">Clear qrCode</button>
+  <br>
+    <img id="QRCodeImage">
+
+ <script>
+
+
+function GerarQRCode(){
+   
+ let inputUsuario = document.getElementById("textqrgenrator").value
+ 
+  let GoogleChartAPI = 'https://chart.googleapis.com/chart?cht=qr&chs=500x500&chld=H&chl='
+  
+  let conteudoQRCode = GoogleChartAPI + encodeURIComponent(inputUsuario)
+ 
+   document.querySelector('#QRCodeImage').src = conteudoQRCode
+}
+
+function clearqrcode(){
+
+let inputUsuario = document.getElementById("textqrgenrator")
+    document.querySelector("#QRCodeImage").src = null
+    inputUsuario.value = null
+
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+</script>
+
+
+
+
+<p>---------------------------------------------------------------------------------------------------</p>
+<h1>Qrcode Scanner ------- dosent work</h1>
+
+<input type="file">
+
+<p>
+<button type="button" onclick="submitimage()">Submit Image</button>
+<button type="button" onclick="clearinput()">Clear Input</button>
+</p>
+
+<textarea id="textqrscanner" maxlength="1500" cols="30" rows="2" style="width: 672px; height: 64px;" placeholder="Qrcode Image Link"></textarea>
+<img id="displayqrcode">
+
+<script>
+
+function submitimage(){
+
+}
+
+function clearinput(){
+
+}
+
+</script>
+
+
+
+
+
+    </body>
+<html>

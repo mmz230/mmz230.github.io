@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock & Adhan Times - Dhahran</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .clock { font-size: 2em; margin: 20px; }
+        .date { font-size: 1.5em; margin: 10px; }
+        .prayer-times { margin-top: 20px; }
+        .prayer-times table { width: 50%; margin: 0 auto; border-collapse: collapse; }
+        .prayer-times th, .prayer-times td { border: 1px solid black; padding: 10px; }
+        .countdown { font-size: 1.2em; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Current Time in Dhahran</h2>
+    <div class="clock" id="clock"></div>
+    <div class="date" id="date"></div>
+    <h2>Adhan Times - Dhahran</h2>
+    <div class="prayer-times">
+        <table>
+            <thead>
+                <tr>
+                    <th>Prayer</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="prayer-times"></tbody>
+        </table>
+    </div>
+    <div class="countdown">
+        <p>Time until next prayer: <span id="next-prayer">Loading...</span></p>
+        <p>Time since last prayer: <span id="previous-prayer">Loading...</span></p>
+    </div>
+    
+    <script>
+        async function fetchPrayerTimes() {
+            const response = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Dhahran&country=SA&method=2');
+            const data = await response.json();
+            const timings = data.data.timings;
+            const prayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+            const tableBody = document.getElementById('prayer-times');
+            tableBody.innerHTML = '';
+            window.prayerTimings = {};
+            prayers.forEach(prayer => {
+                if (timings[prayer]) {
+                    window.prayerTimings[prayer] = timings[prayer];
+                    const row = `<tr><td>${prayer}</td><td>${timings[prayer]}</td></tr>`;
+                    tableBody.innerHTML += row;
+                }
+            });
+            updateClock();
+        }
+
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+            document.getElementById('date').innerText = now.toDateString();
+            checkAdhanTime(now);
+            updatePrayerCountdown(now);
+        }
+
+        function checkAdhanTime(now) {
+            const currentTime = now.toTimeString().split(' ')[0].slice(0, 5);
+            for (let prayer in window.prayerTimings) {
+                if (window.prayerTimings[prayer] === currentTime) {
+                    new Audio(`https://www.islamcan.com/audio/adhan/azan${Object.keys(window.prayerTimings).indexOf(prayer) + 1}.mp3`).play();
+                }
+            }
+        }
+
+        function updatePrayerCountdown(now) {
+            if (!window.prayerTimings || Object.keys(window.prayerTimings).length === 0) return;
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            let nextPrayerTime = null;
+            let previousPrayerTime = null;
+            let nextPrayerName = "";
+            let previousPrayerName = "";
+            
+            for (let prayer in window.prayerTimings) {
+                const [hours, minutes] = window.prayerTimings[prayer].split(':').map(Number);
+                const prayerTime = hours * 60 + minutes;
+                if (prayerTime > currentTime && (nextPrayerTime === null || prayerTime < nextPrayerTime)) {
+                    nextPrayerTime = prayerTime;
+                    nextPrayerName = prayer;
+                }
+                if (prayerTime < currentTime && (previousPrayerTime === null || prayerTime > previousPrayerTime)) {
+                    previousPrayerTime = prayerTime;
+                    previousPrayerName = prayer;
+                }
+            }
+            
+            if (nextPrayerTime !== null) {
+                const timeRemaining = nextPrayerTime - currentTime;
+                document.getElementById('next-prayer').innerText = `${nextPrayerName} in ${Math.floor(timeRemaining / 60)}h ${timeRemaining % 60}m ${60 - now.getSeconds()}s`;
+            } else {
+                document.getElementById('next-prayer').innerText = "No upcoming prayers today";
+            }
+            
+            if (previousPrayerTime !== null) {
+                const timePassed = currentTime - previousPrayerTime;
+                document.getElementById('previous-prayer').innerText = `${previousPrayerName} was ${Math.floor(timePassed / 60)}h ${timePassed % 60}m ${now.getSeconds()}s ago`;
+            } else {
+                document.getElementById('previous-prayer').innerText = "No previous prayers today";
+            }
+        }
+
+        setInterval(updateClock, 1000);
+        fetchPrayerTimes();
+    </script>
+</body>
+</html>

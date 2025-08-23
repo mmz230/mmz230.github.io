@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload, Crop & Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        #drop-area { border: 2px dashed #ccc; padding: 20px; cursor: pointer; }
+        img { max-width: 100%; }
+        .controls { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Paste (Ctrl+V) or Drag & Drop an Image</h2>
+    <button onclick="window.location.href='index.html'">Go Back</button>
+
+    <div id="drop-area">Drop an image here or paste (Ctrl+V)</div>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <br>
+    <img id="image" style="max-width: 100%; display: none;">
+    <br>
+    <div class="controls" id="controls" style="display: none;">
+        <button id="rotate-left">Rotate Left</button>
+        <button id="rotate-right">Rotate Right</button>
+        <button id="crop-btn">Crop & Download</button>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script>
+        let image = document.getElementById('image');
+        let dropArea = document.getElementById('drop-area');
+        let cropper;
+
+        function handleImage(file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                image.src = event.target.result;
+                image.style.display = 'block';
+                document.getElementById('controls').style.display = 'block';
+                if (cropper) cropper.destroy();
+                cropper = new Cropper(image, { aspectRatio: NaN });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        dropArea.addEventListener('dragover', (e) => { e.preventDefault(); dropArea.style.background = '#eee'; });
+        dropArea.addEventListener('dragleave', () => dropArea.style.background = '');
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.style.background = '';
+            handleImage(e.dataTransfer.files[0]);
+        });
+
+        document.addEventListener('paste', (e) => {
+            let items = e.clipboardData.items;
+            for (let item of items) {
+                if (item.type.indexOf('image') !== -1) {
+                    handleImage(item.getAsFile());
+                }
+            }
+        });
+
+        document.getElementById('crop-btn').addEventListener('click', () => {
+            let croppedCanvas = cropper.getCroppedCanvas();
+            let link = document.createElement('a');
+            link.href = croppedCanvas.toDataURL('image/png');
+            link.download = 'cropped-image.png';
+            link.click();
+        });
+
+        document.getElementById('rotate-left').addEventListener('click', () => {
+            cropper.rotate(-90);
+        });
+
+        document.getElementById('rotate-right').addEventListener('click', () => {
+            cropper.rotate(90);
+        });
+    </script>
+</body>
+</html>
