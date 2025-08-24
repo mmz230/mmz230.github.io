@@ -58,20 +58,20 @@ font-family: 'Permanent Marker', cursive;
 
 function GerarQRCode(){
    
- let inputUsuario = document.getElementById("textqrgenrator").value
+ let inputUsuario = document.getElementById("textqrgenrator").value;
  
-  let GoogleChartAPI = 'https://chart.googleapis.com/chart?cht=qr&chs=500x500&chld=H&chl='
+  let GoogleChartAPI = 'https://chart.googleapis.com/chart?cht=qr&chs=500x500&chld=H&chl=';
   
-  let conteudoQRCode = GoogleChartAPI + encodeURIComponent(inputUsuario)
+  let conteudoQRCode = GoogleChartAPI + encodeURIComponent(inputUsuario);
  
-   document.querySelector('#QRCodeImage').src = conteudoQRCode
+   document.querySelector('#QRCodeImage').src = conteudoQRCode;
 }
 
 function clearqrcode(){
 
-let inputUsuario = document.getElementById("textqrgenrator")
-    document.querySelector("#QRCodeImage").src = null
-    inputUsuario.value = null
+let inputUsuario = document.getElementById("textqrgenrator");
+    document.querySelector("#QRCodeImage").src = "";
+    inputUsuario.value = null;
 
 }
 
