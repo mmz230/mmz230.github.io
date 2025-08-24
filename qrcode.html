@@ -38,42 +38,41 @@ font-family: 'Permanent Marker', cursive;
 
 <body >
 
-
 <button onclick="window.location.href='index.html'">Go Back</button>
-<button onclick="window.location.href='/qrcodescan/index.html'"><a href="/qrcodescan/index.html">qrCode Scanner</a></button>
-</br>
+<button onclick="window.location.href='/qrcodescan/index.html'">qrCode Scanner</button>
+<br><br>
 
-<h1>qrCode Genrator</h1>
-  
-  <textarea id="textqrgenrator" maxlength="1500" cols="30" rows="2" style="width: 672px; height: 64px;"></textarea>
- 
-   <br>
-    <button onclick="GerarQRCode()">Genrate qrCode</button>
-  <button onclick="clearqrcode()">Clear qrCode</button>
-  <br>
-    <img id="QRCodeImage">
+<h1>qrCode Generator</h1>
 
- <script>
+<textarea id="textqrgenrator" maxlength="1500" cols="30" rows="2" style="width: 672px; height: 64px;"></textarea>
+<br><br>
 
+<button onclick="GerarQRCode()">Generate QR Code</button>
+<button onclick="clearqrcode()">Clear QR Code</button>
+<br><br>
 
-function GerarQRCode(){
-   
- let inputUsuario = document.getElementById("textqrgenrator").value;
- 
-  let GoogleChartAPI = 'https://chart.googleapis.com/chart?cht=qr&chs=500x500&chld=H&chl=';
-  
-  let conteudoQRCode = GoogleChartAPI + encodeURIComponent(inputUsuario);
- 
-   document.querySelector('#QRCodeImage').src = conteudoQRCode;
+<img id="QRCodeImage" src="" alt="Your QR Code will appear here" style="max-width:500px;">
+
+<script>
+function GerarQRCode() {
+    let inputUsuario = document.getElementById("textqrgenrator").value.trim();
+
+    if (inputUsuario === "") {
+        alert("Please enter some text to generate a QR code.");
+        return;
+    }
+
+    let GoogleChartAPI = 'https://chart.googleapis.com/chart?cht=qr&chs=500x500&chld=H&chl=';
+    let conteudoQRCode = GoogleChartAPI + encodeURIComponent(inputUsuario);
+
+    document.getElementById('QRCodeImage').src = conteudoQRCode;
 }
 
-function clearqrcode(){
-
-let inputUsuario = document.getElementById("textqrgenrator");
-    document.querySelector("#QRCodeImage").src = "";
-    inputUsuario.value = null;
-
+function clearqrcode() {
+    document.getElementById("QRCodeImage").src = "";
+    document.getElementById("textqrgenrator").value = "";
 }
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
